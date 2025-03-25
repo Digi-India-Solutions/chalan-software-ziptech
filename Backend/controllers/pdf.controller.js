@@ -7,7 +7,19 @@ const GeneratePdf = async (req, res) => {
     if (!htmlContent) {
       return res.status(400).json({ message: "htmlContent is required" });
     }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: "new", // Ensures headless mode
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--disable-software-rasterizer",
+        "--disable-extensions",
+        "--disable-features=site-per-process",
+        "--disable-blink-features=AutomationControlled",
+      ],
+    });
     const page = await browser.newPage();
 
     await page.setContent(htmlContent, { waitUntil: "networkidle0" });
