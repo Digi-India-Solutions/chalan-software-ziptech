@@ -7,34 +7,33 @@ import { AuthContext } from "../context/AuthContext";
 
 function Header() {
   const [isToastVisible, setIsToastVisible] = useState(false);
-const router=useRouter();
+  const router = useRouter();
 
-const {token,setToken,email,setEmail}=useContext(AuthContext);
+  const { token, setToken, email, setEmail } = useContext(AuthContext);
 
   const showToast = () => {
     setIsToastVisible(true);
     setTimeout(() => setIsToastVisible(false), 3000);
   };
 
-  const handleLogout=()=>{
-    if(typeof window !== "undefined"){
-    localStorage.removeItem("token");
-    setToken(false);
-    setEmail(null);
-    router.push("/auth")
-    toast.success("Logout successful!");
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      setToken(false);
+      setEmail(null);
+      router.push("/auth");
+      toast.success("Logout successful!");
     }
-  }
+  };
+
   return (
     <>
-      <div className="navbar bg-base-100 text-white ">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Challan Details</a>
+      <div className="navbar-custom">
+        <div className="navbar-left">
+          <a className="btn-ghost">Challan Details</a>
         </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal px-1 items-center justify-center">
-            
-           
+        <div>
+          <ul className="menu">
             <li>
               <Link href="/">View Challan</Link>
             </li>
@@ -75,24 +74,16 @@ const {token,setToken,email,setEmail}=useContext(AuthContext);
 
             {/* Profile / Login Dropdown */}
             <li>
-              <div className="dropdown dropdown-hover">
-                <div tabIndex={0} role="button" className="btn m-1 text-white">
-              <p>Profile</p> 
+              <div className="dropdown-1">
+                <div className="btn m-1 text-white">
+                  <p>Profile</p>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 "
-                  style={{ position: "absolute", top:50, right: 0 }}
-                >
+                <ul className="dropdown-content-1">
                   <li>
                     <p>{email}</p>
-                      <button
-                        className=" hover:bg-red-500 text-white p-2 rounded"
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </button>
-                   
+                    <button className="logout-btn" onClick={handleLogout}>
+                      Logout
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -109,6 +100,117 @@ const {token,setToken,email,setEmail}=useContext(AuthContext);
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        .navbar-custom {
+          background-color: #1a202c;
+          color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .navbar-custom .navbar-left {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #fbbf24;
+        }
+
+        .navbar-custom .menu {
+          display: ruby;
+          gap: 20px;
+          align-items: center;
+        }
+
+        .navbar-custom .menu li {
+          font-size: 1.1rem;
+        }
+
+        .navbar-custom .menu li a {
+          color: #e2e8f0;
+          padding: 5px 10px;
+          text-decoration: none;
+          border-radius: 5px;
+        }
+
+        .navbar-custom .menu li a:hover {
+          background-color: #4a5568;
+        }
+
+        .navbar-custom .dropdown-content {
+          background-color: #2d3748;
+          padding: 15px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          border-radius: 10px;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          z-index: 1;
+        }
+
+        .navbar-custom .dropdown-content li {
+          color: #fff;
+          margin-bottom: 10px;
+        }
+
+        .navbar-custom .dropdown-content li:last-child {
+          margin-bottom: 0;
+        }
+
+        .navbar-custom .dropdown-content li button {
+          background-color: #f56565;
+          color: white;
+          padding: 8px 12px;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          width: 100%;
+        }
+
+        .navbar-custom .dropdown-content li button:hover {
+          background-color: #e53e3e;
+        }
+        .dropdown-1 {
+          position: relative;
+          display: inline-block;
+          margin-left: 10px;
+        }
+        .dropdown-content-1 {
+          display: none;
+          position: absolute;
+          background-color: #f9fafb;
+          border-radius: 5px;
+          min-width: 180px;
+          width: 100%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          border: 1px solid #ccc;
+          padding: 10px;
+          top: 100%;
+          right: 0;
+          
+                    }
+
+        .dropdown-content-1 li {
+          color: #333;
+          
+          }
+          .dropdown-content-1 li button {
+            background-color: #f56565;
+            color: white;
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+          }
+          .dropdown-content-1 li button:hover {
+            background-color: #e53e3e;
+
+          }
+        .dropdown-1:hover .dropdown-content-1 {
+          display: block;
+          z-index: 1;
+        }
+      `}</style>
     </>
   );
 }
