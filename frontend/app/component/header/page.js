@@ -75,7 +75,7 @@ function Header() {
             {/* Profile / Login Dropdown */}
             <li>
               <div className="dropdown-1">
-                <div className="btn m-1 text-white">
+                <div className="">
                   <p>Profile</p>
                 </div>
                 <ul className="dropdown-content-1">
@@ -187,9 +187,7 @@ function Header() {
           border: 1px solid #ccc;
           padding: 10px;
           top: 100%;
-          right: 0;
-          
-                    }
+          right: 0;}
 
         .dropdown-content-1 li {
           color: #333;
