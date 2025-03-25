@@ -21,7 +21,7 @@ const GeneratePdf = async (req, res) => {
     return res.end(pdfBuffer);
   } catch (error) {
     console.log("PDF generation error:", error);
-    res.status(500).json({ message: "Internal Server Error" ,error});
+    res.status(500).json({ message: "Internal Server Error" ,error:error});
   }
 };
 export { GeneratePdf };
