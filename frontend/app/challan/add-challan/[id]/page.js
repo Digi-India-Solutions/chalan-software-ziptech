@@ -760,22 +760,28 @@ function PackDetail() {
             <tr className="bg-yellow-100 font-bold">
               <td className="p-3">T.QTY</td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty1 || 0),
-                  0
-                )}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty1 || 0),
+                    0
+                  ) * 100
+                ) / 100}
               </td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty2 || 0),
-                  0
-                )}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty2 || 0),
+                    0
+                  ) * 100
+                ) / 100}
               </td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty3 || 0),
-                  0
-                )}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty3 || 0),
+                    0
+                  ) * 100
+                ) / 100}
               </td>
             </tr>
 
@@ -800,22 +806,34 @@ function PackDetail() {
             <tr className="bg-yellow-300 font-bold">
               <td className="p-3">T.Price</td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty1 || 0),
-                  0
-                ) * Number(products[0]?.price || 0)}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty1 || 0),
+                    0
+                  ) *
+                    Number(products[0]?.price || 0) *
+                    100
+                ) / 100}
               </td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty2 || 0),
-                  0
-                ) * Number(products[1]?.price || 0)}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty2 || 0),
+                    0
+                  ) *
+                    Number(products[1].price || 0) *
+                    100
+                ) / 100}
               </td>
               <td className="border p-3" colSpan={2}>
-                {tableDetails.reduce(
-                  (sum, item) => sum + Number(item.qty3 || 0),
-                  0
-                ) * Number(products[2]?.price || 0)}
+              {Math.round(
+                  tableDetails.reduce(
+                    (sum, item) => sum + Number(item.qty3 || 0),
+                    0
+                  ) *
+                    Number(products[2].price || 0) *
+                    100
+                ) / 100}
               </td>
             </tr>
 
