@@ -1,4 +1,4 @@
-import pdf from "html-pdf-node";
+import pdf from "html-pdf";
 
 const GeneratePdf = async (req, res) => {
   try {
@@ -8,18 +8,21 @@ const GeneratePdf = async (req, res) => {
       return res.status(400).json({ message: "htmlContent is required" });
     }
 
-    const options = { format: "A4" };
-    const file = { content: htmlContent };
+    // Generate PDF from HTML
+    pdf.create(htmlContent, { format: "A4" }).toBuffer((err, buffer) => {
+      if (err) {
+        console.error("PDF generation error:", err);
+        return res.status(500).json({ message: "Internal Server Error" });
+      }
 
-    const pdfBuffer = await pdf.generatePdf(file, options);
-
-    let filename = `invoice_${Date.now()}.pdf`;
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", `inline; filename=${filename}`);
-    return res.end(pdfBuffer);
+      let filename = `invoice_${Date.now()}.pdf`;
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", `inline; filename=${filename}`);
+      return res.end(buffer);
+    });
   } catch (error) {
-    console.log("PDF generation error:", error);
-    res.status(500).json({ message: "Internal Server Error", error });
+    console.error("PDF generation error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
